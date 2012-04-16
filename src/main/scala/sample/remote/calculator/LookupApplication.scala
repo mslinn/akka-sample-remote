@@ -10,11 +10,11 @@ import akka.actor.{ ActorRef, Props, Actor, ActorSystem }
 class LookupApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
   val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("remotelookup"))
-  val actor = system.actorOf(Props[LookupActor], "lookupActor")
+  val actorRef = system.actorOf(Props[LookupActor], "lookupActor")
 
-  val remoteActor = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
+  val remoteActorRef = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
 
-  def doSomething(op: MathOp) = { actor ! (remoteActor, op) }
+  def doSomething(op: MathOp) = { actorRef ! (remoteActorRef, op) }
 
   // Scaladoc says "Callback run on microkernel startup" but this method never gets called
   def startup() {

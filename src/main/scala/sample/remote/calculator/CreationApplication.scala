@@ -9,14 +9,14 @@ import java.io.File
 class CreationApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
   val system      = ActorSystem("RemoteCreation", ConfigFactory.load.getConfig("remotecreation"))
-  val localActor  = system.actorOf(Props[CreationActor], "creationActor")
-  val remoteActor = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")
+  val localActorRef  = system.actorOf(Props[CreationActor],           "creationActor")
+  val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")
 
   def doSomething(op: MathOp) = {
-    localActor ! (remoteActor, op)
+    localActorRef ! (remoteActorRef, op)
   }
 
-  // Scaladoc says "Callback run on microkernel startup" but this method never gets called
+  // ScalaDoc says "Callback run on microkernel startup" but this method never gets called
   def startup() {
     println("CreationApplication started")
   }

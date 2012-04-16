@@ -19,12 +19,12 @@ class SimpleCalculatorActor extends Actor {
 class CalculatorApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
   val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("calculator"))
-  val actor = system.actorOf(Props[SimpleCalculatorActor], "simpleCalculator")
-  println(actor.path + " started")
+  val actorRef = system.actorOf(Props[SimpleCalculatorActor], "simpleCalculator")
+  println(actorRef.path + " started")
 
   // Scaladoc says "Callback run on microkernel startup" but this method never gets called
   override def startup() {
-    println(actor.path)
+    println(actorRef.path)
   }
 
   override def shutdown() {

@@ -9,6 +9,9 @@ I hope that this does not introduce problems.
 
 1.  The Scaladoc for <tt>Bootable.startup()</tt> says "Callback run on microkernel startup" but <tt>startup()</tt> never gets called.
 2.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
+3.  In <tt>CreationApplication</tt>, the following code give the remote actor the same name as the router (<tt>advancedCalculator</tt>):
+<pre>val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")</pre>
+Looks like this is the way to create a remote actor reference, because if I alter the name in the call, it does not work the same.
 
 The only way I could get these applications to run without error was to launch them in this order:
 
