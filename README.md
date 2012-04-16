@@ -5,6 +5,7 @@ This project uses the Akka microkernel. It contains 3 apps that extend <tt>Boota
 
 I am testing with IntelliJ IDEA 11; included with this project are 3 run configurations. 
 These run configurations launch the programs from <tt>target/scala-2.9.1-1/classes</tt> so <tt>application.conf</tt> and <tt>common.conf</tt> are found.
+I hope that this does not introduce problems.
 
 1.  The Scaladoc for <tt>Bootable.startup()</tt> says <tt>Callback run on microkernel startup</tt> but <tt>startup()</tt> never gets called.
 2.  <tt>LookupApplication</tt> does not find <tt>CalculatorApplication</tt>. The message is <tt>look-up of unknown path [akka://CalculatorApplication/user/simpleCalculator] failed</tt>.
