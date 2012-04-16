@@ -12,6 +12,7 @@ I hope that this does not introduce problems.
 3.  <tt>application.conf</tt> references a router (<tt>advancedCalculator</tt>) that is undefined.
 
 The only way I could get these applications to run without error was to launch them in this order:
+
 1. <tt>CalculatorApplication</tt>
 2. <tt>CreationApplication</tt> or <tt>LookupApplication</tt>
 
