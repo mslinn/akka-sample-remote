@@ -10,3 +10,9 @@ I hope that this does not introduce problems.
 1.  The Scaladoc for <tt>Bootable.startup()</tt> says <tt>Callback run on microkernel startup</tt> but <tt>startup()</tt> never gets called.
 2.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
 3.  <tt>application.conf</tt> references a router (<tt>advancedCalculator</tt>) that is undefined.
+
+The only way I could get these applications to run without error was to launch them in this order:
+1. <tt>CalculatorApplication</tt>
+2. <tt>CreationApplication</tt> or <tt>LookupApplication</tt>
+
+I thought that <tt>CreationApplication</tt> or <tt>LookupApplication</tt> might launch <tt>CalculatorApplication</tt>, but it does not. Should it?

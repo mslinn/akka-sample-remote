@@ -8,8 +8,8 @@ import java.io.File
 
 class CreationApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
-  val system = ActorSystem("RemoteCreation", ConfigFactory.load.getConfig("remotecreation"))
-  val localActor = system.actorOf(Props[CreationActor], "creationActor")
+  val system      = ActorSystem("RemoteCreation", ConfigFactory.load.getConfig("remotecreation"))
+  val localActor  = system.actorOf(Props[CreationActor], "creationActor")
   val remoteActor = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")
 
   def doSomething(op: MathOp) = {

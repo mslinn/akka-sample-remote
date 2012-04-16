@@ -20,14 +20,14 @@ class CalculatorApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
   val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("calculator"))
   val actor = system.actorOf(Props[SimpleCalculatorActor], "simpleCalculator")
-  println(actor.path)
+  println(actor.path + " started")
 
   // Scaladoc says "Callback run on microkernel startup" but this method never gets called
-  def startup() {
+  override def startup() {
     println(actor.path)
   }
 
-  def shutdown() {
+  override def shutdown() {
     system.shutdown()
   }
 }
@@ -35,6 +35,5 @@ class CalculatorApplication extends Bootable {
 object CalcApp {
   def main(args: Array[String]) {
     new CalculatorApplication
-    println("Started CalculatorApplication - waiting for messages")
   }
 }
