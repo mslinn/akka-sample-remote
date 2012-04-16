@@ -18,8 +18,7 @@ class SimpleCalculatorActor extends Actor {
 
 class CalculatorApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
-  val config = ConfigFactory.load(ConfigFactory.parseFile(new File("application.conf")))
-  val system = ActorSystem("CalculatorApplication", config.getConfig("calculator"))
+  val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("calculator"))
   val actor = system.actorOf(Props[SimpleCalculatorActor], "simpleCalculator")
   println(actor.path)
 

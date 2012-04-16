@@ -9,13 +9,10 @@ import akka.actor.{ ActorRef, Props, Actor, ActorSystem }
 
 class LookupApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
-  val config = ConfigFactory.load(ConfigFactory.parseFile(new File("application.conf")))
-  val system = ActorSystem("LookupApplication", config.getConfig("remotelookup"))
+  val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("remotelookup"))
   val actor = system.actorOf(Props[LookupActor], "lookupActor")
 
-  // look-up of unknown path [akka://CalculatorApplication/user/simpleCalculator] failed with both variations:
-  //val remoteActor = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
-  val remoteActor = system.actorFor("akka://CalculatorApplication/user/simpleCalculator")
+  val remoteActor = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
 
   def doSomething(op: MathOp) = { actor ! (remoteActor, op) }
 

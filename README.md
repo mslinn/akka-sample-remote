@@ -8,11 +8,5 @@ These run configurations launch the programs from <tt>target/scala-2.9.1-1/class
 I hope that this does not introduce problems.
 
 1.  The Scaladoc for <tt>Bootable.startup()</tt> says <tt>Callback run on microkernel startup</tt> but <tt>startup()</tt> never gets called.
-2.  <tt>LookupApplication</tt> does not find <tt>CalculatorApplication</tt>. The message is <tt>look-up of unknown path [akka://CalculatorApplication/user/simpleCalculator] failed</tt>.
-3.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
-4.  <tt>application.conf</tt> references a router (<tt>advancedCalculator</tt>) that is undefined.
-5.  The application configurations did not load from <tt>application.conf</tt>. I replaced this code:
-<pre>val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("calculator"))</pre>
-with this code:
-<pre>val config = ConfigFactory.load(ConfigFactory.parseFile(new File("application.conf")))
-val system = ActorSystem("CalculatorApplication", config.getConfig("calculator"))</pre>
+2.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
+3.  <tt>application.conf</tt> references a router (<tt>advancedCalculator</tt>) that is undefined.
