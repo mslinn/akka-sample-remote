@@ -1,5 +1,5 @@
 Taken from [Akka 2.0 akka-sample-remote example](https://github.com/akka/akka/tree/master/akka-samples/akka-sample-remote).
-I created this project in order to figure out how to run it, which meant that the errors it contained needed to be fixed first.
+I created this project in order to figure out how to run it.
 The Java files were deleted because I was not interested in them.
 This project uses the Akka microkernel. It contains 3 apps that extend <tt>Bootable</tt>. 
 
