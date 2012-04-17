@@ -16,7 +16,7 @@ Even when only 1 instance of CalculatorApplication is requested, I see 3 created
 <pre>val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")</pre>
 Looks like this is the way to create a remote actor reference, because if I alter the name in the call, it does not work the same.
 However, it does not start <tt>CalculatorApplication</tt>.
-The [docs](http://doc.akka.io/docs/akka/2.0/scala/remoting.html) say that the above should launch a remote actor. What is wrong?
+The [docs](http://doc.akka.io/docs/akka/2.0/scala/remoting.html#Creating_Actors_Remotely) say that the above should launch a remote actor. What is wrong?
 
 <tt>LookupApplication</tt> now launches <tt>CreationApplication</tt>.
 As with the original program, if <tt>CalculatorApplication</tt> is not launched before <tt>CreationApplication</tt> then errors occur until
