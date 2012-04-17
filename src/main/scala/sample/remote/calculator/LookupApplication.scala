@@ -6,14 +6,17 @@ import akka.actor._
 import akka.kernel.Bootable
 import akka.remote._
 import com.typesafe.config.ConfigFactory
+import akka.routing.RoundRobinRouter
 
 class LookupApplication extends Bootable {
   println("application.conf found in %s: %s".format(new File(".").getCanonicalPath, new File("application.conf").exists()))
   val system = ActorSystem("CalculatorApplication", ConfigFactory.load.getConfig("remotelookup"))
   val actorRef = system.actorOf(Props[LookupActor], "lookupActor")
 
-  // look up remote actor; must exist or messages cannot be sent; how to detect?
-  val remoteActorRef = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
+  // look up remote actor; must exist or messages cannot be sent
+  //val remoteActorRef = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
+  // create remote actor; starts a new instance of CalculatorApplication
+  val remoteActorRef = system.actorOf(Props[SimpleCalculatorActor].withRouter(RoundRobinRouter(1)))
 
   /* RemoteClientLifeCycleEvent and the following case classes for RemoteClient and RemoteServer are defined in RemoteTransport.scala
   * Mar 29/12: From https://groups.google.com/forum/?fromgroups#!searchin/akka-user/RemoteClientDisconnected/akka-user/xv6jVAz0OPs/lMKnPWWKVe4J
