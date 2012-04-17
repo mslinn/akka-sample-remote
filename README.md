@@ -10,6 +10,8 @@ These run configurations launch the programs from <tt>target/scala-2.9.1-1/class
 2.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
 3.  I added subscriptions to actor lifecyle events in <tt>LookupApplication</tt>; some comments and questions are embedded there.
 4.  I changed <tt>LookupApplication</tt> so it would launch <tt>CalculatorApplication</tt> using a programmatically specified router.
+<pre>val remoteActorRef = system.actorOf(Props[SimpleCalculatorActor].withRouter(RoundRobinRouter(1)))</pre>
+Even when only 1 instance of CalculatorApplication is requested, I see 3 created. When I specify 5, 7 are created. Why is that?
 5.  In <tt>CreationApplication</tt>, the following code gives the remote actor the same name as the router (<tt>advancedCalculator</tt>):
 <pre>val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")</pre>
 Looks like this is the way to create a remote actor reference, because if I alter the name in the call, it does not work the same.
