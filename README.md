@@ -6,15 +6,15 @@ This project uses the Akka microkernel. It contains 3 apps that extend <tt>Boota
 I tested with IntelliJ IDEA 11; included with this git project are 3 IDEA run configurations.
 These run configurations launch the programs from <tt>target/scala-2.9.1-1/classes</tt> so <tt>application.conf</tt> and <tt>common.conf</tt> are found.
 
-1.  The Scaladoc for <tt>Bootable.startup()</tt> says "Callback run on microkernel startup" but <tt>startup()</tt> never gets called. Is this a bug in the documentatio or in Akka?
+1.  The Scaladoc for <tt>Bootable.startup()</tt> says "Callback run on microkernel startup" but <tt>startup()</tt> never gets called. Is this a bug in the documentation or in Akka?
 2.  I updated the syntax of <tt>common.conf</tt> to match the current docs.
 3.  I added subscriptions to actor lifecyle events in <tt>LookupApplication</tt>; some comments and questions are embedded there.
 4.  I changed <tt>LookupApplication</tt> so it would launch <tt>CalculatorApplication</tt> using a programmatically specified router.
-    Is there a way to use a configured router, such as <tt>advancedCalculator</tt> defined in <tt>application.conf</tt>?
 5.  In <tt>CreationApplication</tt>, the following code gives the remote actor the same name as the router (<tt>advancedCalculator</tt>):
 <pre>val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")</pre>
 Looks like this is the way to create a remote actor reference, because if I alter the name in the call, it does not work the same.
 However, it does not start <tt>CalculatorApplication</tt>.
+Is there a way to use a configured router, such as <tt>advancedCalculator</tt> defined in <tt>application.conf</tt>?
 
 <tt>LookupApplication</tt> now launches <tt>CreationApplication</tt>.
 If <tt>CalculatorApplication</tt> is not launched before <tt>CreationApplication</tt> then errors occur until
