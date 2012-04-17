@@ -14,10 +14,10 @@ These run configurations launch the programs from <tt>target/scala-2.9.1-1/class
 <pre>val remoteActorRef = system.actorOf(Props[AdvancedCalculatorActor], "advancedCalculator")</pre>
 Looks like this is the way to create a remote actor reference, because if I alter the name in the call, it does not work the same.
 However, it does not start <tt>CalculatorApplication</tt>.
-Is there a way to use a configured router, such as <tt>advancedCalculator</tt> defined in <tt>application.conf</tt>?
+Is there a way to use a configured router, such as <tt>advancedCalculator</tt> defined in <tt>application.conf</tt> to launch a remote actor?
 
 <tt>LookupApplication</tt> now launches <tt>CreationApplication</tt>.
-If <tt>CalculatorApplication</tt> is not launched before <tt>CreationApplication</tt> then errors occur until
+As with the original program, if <tt>CalculatorApplication</tt> is not launched before <tt>CreationApplication</tt> then errors occur until
 <tt>CalculatorApplication</tt> is launched.
 
 
