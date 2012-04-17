@@ -15,7 +15,16 @@ class LookupApplication extends Bootable {
   // look up remote actor; must exist or messages cannot be sent; how to detect?
   val remoteActorRef = system.actorFor("akka://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator")
 
-  /* RemoteClientLifeCycleEvent and the following case classes for RemoteClient and RemoteServer are defined in RemoteTransport.scala */
+  /* RemoteClientLifeCycleEvent and the following case classes for RemoteClient and RemoteServer are defined in RemoteTransport.scala
+  * Mar 29/12: From https://groups.google.com/forum/?fromgroups#!searchin/akka-user/RemoteClientDisconnected/akka-user/xv6jVAz0OPs/lMKnPWWKVe4J
+  * "DeathWatch and the RemoteTransport are not yet hooked up, that is planned for when clustering comes along and brings
+  * with it nice failure detectors etc. What you can do in 2.0 is to subscribe to the RemoteClientWriteFailed (and similar) messages
+  * on the system.eventStream and react to those basically as you would to a Terminated() message; in that sense
+  * system.eventStream.subscribe(self, RemoteClientDisconnected) replaces context.watch() for your use-case. Keep in mind, though,
+  * that a broken connection may be reestablished and then you declared some actors “dead” which actually are still alive; this small
+  * complication is the reason why that feature is waiting for the cluster membership support so that this “declared dead” step can
+  * be done reliably."*/
+
   val listener = system.actorOf(Props(new Actor {
     def receive = {
       // does not trigger
