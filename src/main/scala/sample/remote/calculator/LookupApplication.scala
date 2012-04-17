@@ -24,7 +24,6 @@ class LookupApplication extends Bootable {
   * that a broken connection may be reestablished and then you declared some actors “dead” which actually are still alive; this small
   * complication is the reason why that feature is waiting for the cluster membership support so that this “declared dead” step can
   * be done reliably."*/
-
   val listener = system.actorOf(Props(new Actor {
     def receive = {
       // does not trigger
@@ -85,7 +84,6 @@ class LookupApplication extends Bootable {
   }), "RemoteClientLifeCycleListener")
 
   system.eventStream.subscribe(listener, classOf[RemoteLifeCycleEvent])
-  system.eventStream.subscribe(listener, classOf[RemoteClientDisconnected])
   system.eventStream.subscribe(listener, classOf[DeadLetter])
 
   def doSomething(op: MathOp) = { actorRef ! (remoteActorRef, op) }
